@@ -1,20 +1,34 @@
+use std::{
+    fs::File,
+    io::{BufRead, BufReader},
+};
+
 fn main() {
     let result = day1_p1();
     println!("{result} are larger than the previous");
 }
 
 fn day1_p1() -> i32 {
-    let measurements = vec![199, 200, 208, 210, 200, 207, 240, 269, 260, 263];
+    let file = File::open("inputs/day1_p1.txt").expect("File not found");
+    let mut measurements = BufReader::new(file).lines();
 
-    let mut prev = measurements[0];
+    let mut prev = measurements
+        .next()
+        .unwrap()
+        .unwrap()
+        .parse::<i32>()
+        .unwrap();
 
     let mut count = 0;
 
     for measure in measurements {
-        if is_deeper(&prev, &measure) {
-            count += 1;
+        if let Ok(measure) = measure {
+            let measure_int = measure.parse::<i32>().unwrap();
+            if is_deeper(&prev, &measure_int) {
+                count += 1;
+            }
+            prev = measure_int
         }
-        prev = measure
     }
 
     return count;
