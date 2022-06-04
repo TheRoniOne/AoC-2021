@@ -1,8 +1,9 @@
 mod day1;
+mod day2;
 
-use crate::day1::day1_p2;
+use crate::day2::day2_p1;
 
 fn main() {
-    let result = day1_p2();
-    println!("{result} are larger than the previous");
+    let result = day2_p1();
+    println!("{result} is the final result");
 }
